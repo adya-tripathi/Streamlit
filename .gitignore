@@ -1,0 +1,21 @@
+# These files are to ignored and not put up on git hub
+# Virtual Environment
+streamlit-env/
+
+# Python cache and bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Streamlit local configurations
+.streamlit/config.toml
+.streamlit/secrets.toml
+
+# Local environment variables / Secrets
+.env
+.env.local
+
+# OS clutter
+.DS_Store
+Thumbs.db
