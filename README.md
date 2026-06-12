@@ -9,6 +9,11 @@ LEARNINGS :
 - Basic functions like st.write,st,header,st.title,etc
 - Using numpy and pandas with streamlit
 - Using altair to plot graphs
+- Explored the slider function
+- Explored line charts 
+- Explored the selectbox and the multiselect box function
+- Explored checkbox and toggle function
+
 
 
 ## 🛠️ Tech Stack
