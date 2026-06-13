@@ -13,6 +13,11 @@ LEARNINGS :
 - Explored line charts 
 - Explored the selectbox and the multiselect box function
 - Explored checkbox and toggle function
+- Explored the latex function to write mathematical formulas
+- Explored Streamlit secrets
+- Explored file uploader
+- Learnt how to layout the app using columns,expander and sidebars
+-
 
 
 
