@@ -240,7 +240,7 @@ my_bar = st.progress(0)
 # The variable percent_complete starts at 0(given earlier)
 for percent_complete in range(100):
     # this is to create the effect of incresing progress visible
-    time.sleep(0.1)
+    time.sleep(0.005)
     # On every iteration of the loop,we call the method my_bar object to update its value.
     my_bar.progress(percent_complete + 1)
 st.balloons()
@@ -259,5 +259,104 @@ with st.status("Processing your data...", expanded=True) as status:
     status.update(label="Process complete!", state="complete", expanded=False)
 
 
+st.header("Exploring st.form")
+# the values of the variables in the form do not change until you submit the form
+# Using with notation
+st.subheader("Coffee Machine")
+with st.form("My Form"):
+    st.write("**Order your coffee**")
+
+    # Input variables
+    coffee_bean = st.selectbox("Coffee Bean",["Arabica","Robusta"])
+    coffee_roast = st.selectbox("Coffee roast", ["Light", "Medium", "Dark"])
+    brewing_val = st.selectbox("Brewing method", ["Aeropress", "Drip", "French press", "Moka pot", "Siphon"])
+    serving_type_val = st.selectbox("Serving format", ["Hot", "Iced", "Frappe"])
+    # st.slider will take only int/float values..for string values use st.select_slider
+    milk_val = st.select_slider("Milk intensity", ["None", "Low", "Medium", "High"])
+    owncup_val = st.checkbox("Bring own cup")
+
+    # every form must have a submit button
+    submitted = st.form_submit_button("Submit")
+
+if submitted:
+    st.markdown(f"""
+    You coffee was ordered😁
+    - Coffee bean: `{coffee_bean}`
+    - Coffee roast: `{coffee_roast}`
+    - Brewing: `{brewing_val}`
+    - Serving type: `{serving_type_val}`
+    - Milk: `{milk_val}`
+    - Bring own cup: `{owncup_val}`    
+    """)
+else:
+    st.write("Please place your order!")
+
+# Using object notation
+
+form = st.form("my_form")
+selected_val = form.slider("Select a value",0,10)
+form.form_submit_button("Submit")
+
+st.write("Selected value :",selected_val)
+
+st.header("Query parameter")
+# Query parameters are the key-value pairs you see at the end of a website link after a question mark
+# This line tells Streamlit to look up at the browser's URL bar and grab everything after the ?
+# will retrieve a dictionary with different keys and list of its values stored in query_params
+query_params = st.query_params
+st.write(query_params)
+# we can fetch the values of the list using keys
+# the first notation is preferred bcuz if there are no query params then the second one throws error
+# if the list empty the value assigned is none
+firstname = query_params.get("name")
+surname = query_params.get('surname')
+
+if firstname != None and surname != None:
+    st.write(f"Hello {firstname} {surname}.How are you?")
 
 
+st.header("Caching in Streamlit")
+# since the whole code reruns everytime you interact with something on the app...if you are doing some heavy operation like loading a big dataset it would make the app very slow 
+# Caching allows you to save the output of a heavy function so you can completely skip running its code on a rerun.
+# 2 types of caching:
+# 1.@st.cache_data : used when a function returns serializable data that could be saved on a file like list,datframe,etc.Everytime data is pulled from the app a fresh copy of data is given to the user
+# without caching it was taking 0.9176 seconds to load the data for thr first time and 0.8313 for the second
+# with caching first it took 1.06 sec but the second time it was only 0.46
+# because with caching the data is being stored in the cache and when the code is rerun it not running the loading part because the loading function is same..the cache will be updated only if the function is changed
+# if a time.sleep(n) is included in the data loading function then without caching it would take n seconds to run the function everytime but with caching only first time data laoding is slow after that the data copy from the cache is provided so it would be fast
+from time import time
+st.subheader("Data cahching")
+a0 = time()
+@st.cache_data
+def load_data():
+    df = pd.DataFrame(
+        np.random.randn(2000000,5),columns = ['a','b','c','d','e']
+    )
+    return df
+st.write(load_data())
+a1 = time()
+st.info(a1-a0)
+# 2.@st.cache_resource : used when funtions returns a global object/resource that you do not want to clone in your memory like a ml model
+
+
+# st.session_state is a global Python dictionary that survives reruns, remembers data, choices, or counters for a single user session.
+# the session variable are the ones which wont be updated even if rerun happens only updated if explicitly changed
+# forms are also session state
+st.header("st.session_state")
+
+def lbs_to_kg():
+    st.session_state.kg = st.session_state.lbs/2.2046
+
+def kg_to_lbs():
+    st.session_state.lbs = st.session_state.kg*2.2046
+
+st.subheader("Input")
+col1 , spacer , col2 = st.columns([2,1,2])
+with col1:
+    # key will store the result in the session state dictionary with lbs as its key
+    # on_change makes sure that as soon as the value of one of them is changed the others is change first before rerunning the script
+    pounds = st.number_input("Pounds:",key = "lbs",on_change =lbs_to_kg)
+with col2:
+    kilogram = st.number_input("Kilograms:",key = "kg",on_change =kg_to_lbs)
+st.subheader("Output")
+st.write(st.session_state)

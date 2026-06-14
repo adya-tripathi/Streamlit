@@ -11,14 +11,15 @@ LEARNINGS :
 - Using altair to plot graphs
 - Explored the slider function
 - Explored line charts 
-- Explored the selectbox and the multiselect box function
-- Explored checkbox and toggle function
+- Explored the selectbox and the multiselect box and checkbox and toggle function
 - Explored the latex function to write mathematical formulas
 - Explored Streamlit secrets
-- Explored file uploader
+- Explored file uploader and progress bar
 - Learnt how to layout the app using columns,expander and sidebars
--
-
+- Learnt how forms are made up
+- Learnt to use the URL's query parameters
+- Learnt to use caching in streamlit
+- Learned about the st.session_state
 
 
 ## 🛠️ Tech Stack
