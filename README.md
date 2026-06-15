@@ -7,19 +7,16 @@ GitHub Repo link : (https://github.com/zkan/30DaysOfStreamlit/tree/main)
 ## 🚀 Features
 LEARNINGS :
 - Basic functions like st.write,st,header,st.title,etc
-- Using numpy and pandas with streamlit
-- Using altair to plot graphs
-- Explored the slider function
-- Explored line charts 
-- Explored the selectbox and the multiselect box and checkbox and toggle function
+- Using numpy and pandas,altair to plot graphs ,line charts in streamlit
+- Explored the slider function,the selectbox and the multiselect box,checkbox and the toggle function
 - Explored the latex function to write mathematical formulas
 - Explored Streamlit secrets
-- Explored file uploader and progress bar
+- Explored file uploader and progress bar,how forms are made up
 - Learnt how to layout the app using columns,expander and sidebars
-- Learnt how forms are made up
 - Learnt to use the URL's query parameters
 - Learnt to use caching in streamlit
 - Learned about the st.session_state
+- CREATED A MODIFIED VESION OF THE BORED API APP
 
 
 ## 🛠️ Tech Stack
